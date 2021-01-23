@@ -1,0 +1,32 @@
+version: "3.1"
+services:
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8000:80"
+      - "443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default
+      - ./docker/nginx/nginx.conf:/etc/nginx/sites-available/default
+    links:
+      - nodeserver
+    env_file: ./.env
+
+  nodeserver:
+    image: node:latest
+    container_name: nodeserver
+    working_dir: /nodeserver
+    volumes:
+      - ./nodeserver:/nodeserver
+    links:
+      - mysql
+    ports:
+      - "9000"
+    entrypoint: /application/start_application.sh
+    env_file: ./.env
+    environment:
+      "NODE_ENV": "development"
+
+
