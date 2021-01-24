@@ -20,11 +20,8 @@ services:
     working_dir: /nodeserver
     volumes:
       - ./nodeserver:/nodeserver
-    links:
-      - mysql
     ports:
       - "9000"
-    entrypoint: /application/start_application.sh
     env_file: ./.env
     environment:
       "NODE_ENV": "development"
