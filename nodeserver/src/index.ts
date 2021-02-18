@@ -1,15 +1,14 @@
-import fastify from 'fastify'
-
-const server = fastify()
-
-server.get('/ping', async (request, reply) => {
-  return 'pong\n'
+const fastify = require('fastify')({
+  logger: true
 })
 
-server.listen(3000, (err, address) => {
+fastify.register(require('../src/infraestructure/http/index'))
+//fastify.register(require('../src/infraestructure/db/index'))
+
+fastify.listen(3000, function (err:any, address:any) {
   if (err) {
-    console.error(err)
+    fastify.log.error(err)
     process.exit(1)
   }
-  console.log(`Server listening at ${address}`)
+  fastify.log.info(`server listening on ${address}`)
 })
