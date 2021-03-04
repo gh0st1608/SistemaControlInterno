@@ -20,7 +20,7 @@ module.exports = routes
 function routes(fastify, options) {
     return __awaiter(this, void 0, void 0, function* () {
         //const collection = fastify.mongo.db.collection('test_collection')
-        fastify.get('/list', grabadoController.getGrabados);
+        fastify.get('/grabado/lista', grabadoController.getGrabados);
         fastify.get('/grabado/:idgrabado', grabadoController.getGrabadosById);
     });
 }
